@@ -1,5 +1,5 @@
 <script>
-import OrderService from '../../../Admin/src/services/Order.service';
+import OrderService from '../services/Order.service';
 import loading from '../components/loading.vue';
 export default {
     data() {
