@@ -1,6 +1,6 @@
 <script>
 import leftPage from '../components/left-page.vue';
-import OrderService from '../../../ValiStore/src/services/Order.service';
+import OrderService from '../../../Admin/src/services/Order.service';
 import loading from '../components/loading.vue';
 export default {
     data() {
