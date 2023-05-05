@@ -4,12 +4,12 @@
             <img src="../assets/img/logo-vila.png" alt="logo">
         </div>
         <ul class="nav_list">
-            <router-link :to="{ name: 'users' }" active-class="active">
+            <a href="/users" active-class="active">
                 <li class="nav_list-item">
                     <i class="fa-solid fa-users"></i>
                     <span>Quản lý người dùng</span>
                 </li>
-            </router-link>
+              </a>
             <router-link :to="{ name: 'products' }" active-class="active">
                 <li class="nav_list-item">
                     <i class="fa-brands fa-product-hunt"></i>

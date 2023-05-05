@@ -7,43 +7,11 @@ export default {
 </script>
 <template>
   <div class="main">
-    <div class="w-100 h-100 d-flex">
-      <div class="right_page">
-        <div class="header bg-dark">
-          <div class="user d-flex justify-content-end">
-            <div class="d-flex justify-content-between">
-              <i class="fa-solid fa-list"></i>
-              <i class="fa-solid fa-bell"></i>
-              <i class="fa-solid fa-user"></i>
-            </div>
-            <!-- <button type="button" class="btn btn-info">Đăng xuất</button> -->
-          </div>
-        </div>
-        <div>
-          <router-view></router-view>
-        </div>
-      </div>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 <style>
-.header {
-  color: var(--color--white--);
-  height: 60px;
-}
-
-.user {
-  font-size: 18px;
-  padding: 10px;
-  height: 100%;
-}
-
-.user div {
-  align-items: center;
-  width: 100px;
-}
-
-.left_page {
+/* .left_page {
   width: 20%;
   background-color: var(--color--main--);
 }
@@ -88,5 +56,5 @@ export default {
 .active li {
   color: var(--color--main--);
   background-color: var(--color--white--);
-}
+} */
 </style>

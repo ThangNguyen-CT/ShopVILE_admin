@@ -2,6 +2,7 @@
 import ProductService from '../services/Product.service';
 import leftpage from '../components/left-page.vue'
 import loading from '../components/loading.vue';
+import hearder from '../components/hearder.vue';
 export default {
     data() {
         return {
@@ -9,7 +10,7 @@ export default {
             sortprice: true,
             sortquantity: true,
             sorttitle: true,
-            sortcategory:true,
+            sortcategory: true,
             products: [],
             sort: '',
             valuesort: '',
@@ -17,7 +18,7 @@ export default {
         }
     },
     components: {
-        leftpage, loading
+        leftpage, loading, hearder
     },
     methods: {
         async getallproduct() {
@@ -49,23 +50,27 @@ export default {
             this.getallproduct();
         },
         async searchproduct() {
-            if(this.textsearch != ''){
+            if (this.textsearch != '') {
                 this.isLoad = true;
                 this.products = await ProductService.getSearch(`?search=${this.textsearch}`);
                 this.isLoad = false;
                 this.textsearch = '';
-            }else{
+            } else {
                 alert("Vui lòng nhập thông tin tìm kiếm !!!");
             }
         }
     },
     mounted() {
         this.getallproduct();
+    },
+    created() {
+
     }
 }
 </script>
 <template>
     <loading v-if="isLoad"></loading>
+    <hearder></hearder>
     <div class="wrapper d-flex">
         <leftpage></leftpage>
         <div class="products">
@@ -75,81 +80,86 @@ export default {
             </div>
             <h5 class="text-center">Danh sách sản phẩm</h5>
             <ul class="list-info">
-                <li class="d-flex justify-content-center">
-                    <span class="product-stt">STT</span>
-                    <span class="product-category">Loại
-                        <i v-if="sortcategory" class="fa-solid fa-arrow-down-a-z"
-                            @click="sortcategory = !sortcategory, fnsortprice('sort', 'category')"></i>
-                        <i v-else class="fa-solid fa-arrow-down-z-a"
-                            @click="sortcategory = !sortcategory, fnsortprice('sort', '-category')"></i>
-                    </span>
-                    <span class="product-name">Tên
-                        <i v-if="sorttitle" class="fa-solid fa-arrow-down-a-z"
-                            @click="sorttitle = !sorttitle, fnsortprice('sort', 'title')"></i>
-                        <i v-else class="fa-solid fa-arrow-down-z-a"
-                            @click="sorttitle = !sorttitle, fnsortprice('sort', '-title')"></i>
-                    </span>
-                    <span class="product-quantity">Số lượng
-                        <i v-if="sortquantity" class="fa-solid fa-sort-down"
-                            @click="sortquantity = !sortquantity, fnsortprice('sort', 'quantity')"></i>
-                        <i v-else class="fa-solid fa-sort-up"
-                            @click="sortquantity = !sortquantity, fnsortprice('sort', '-quantity')"></i>
-                    </span>
-                    <span class="product-price">Giá
-                        <i v-if="sortprice" class="fa-solid fa-sort-down"
-                            @click="sortprice = !sortprice, fnsortprice('sort', 'price')"></i>
-                        <i v-else class="fa-solid fa-sort-up"
-                            @click="sortprice = !sortprice, fnsortprice('sort', '-price')"></i>
-                    </span>
-                    <span class="product-modify">Hiệu chỉnh</span>
+                <!-- <li class="d-flex justify-content-center"> -->
+                <li class="product-stt">STT</li>
+                <li class="product-category">Loại
+                    <i v-if="sortcategory" class="fa-solid fa-arrow-down-a-z"
+                        @click="sortcategory = !sortcategory, fnsortprice('sort', 'category')"></i>
+                    <i v-else class="fa-solid fa-arrow-down-z-a"
+                        @click="sortcategory = !sortcategory, fnsortprice('sort', '-category')"></i>
                 </li>
+                <li class="product-name">Tên
+                    <i v-if="sorttitle" class="fa-solid fa-arrow-down-a-z"
+                        @click="sorttitle = !sorttitle, fnsortprice('sort', 'title')"></i>
+                    <i v-else class="fa-solid fa-arrow-down-z-a"
+                        @click="sorttitle = !sorttitle, fnsortprice('sort', '-title')"></i>
+                </li>
+                <li class="product-quantity">Số lượng
+                    <i v-if="sortquantity" class="fa-solid fa-sort-down"
+                        @click="sortquantity = !sortquantity, fnsortprice('sort', 'quantity')"></i>
+                    <i v-else class="fa-solid fa-sort-up"
+                        @click="sortquantity = !sortquantity, fnsortprice('sort', '-quantity')"></i>
+                </li>
+                <li class="product-price">Giá
+                    <i v-if="sortprice" class="fa-solid fa-sort-down"
+                        @click="sortprice = !sortprice, fnsortprice('sort', 'price')"></i>
+                    <i v-else class="fa-solid fa-sort-up"
+                        @click="sortprice = !sortprice, fnsortprice('sort', '-price')"></i>
+                </li>
+                <li class="product-modify">Hiệu chỉnh</li>
+                <!-- </li> -->
             </ul>
-            <ul class="list-product">
+            <div class="list-product">
                 <div v-if="products.length == 0">
-                   <h3 class="text-center">Không có sản phẩm</h3>
+                    <h3 class="text-center">Không có sản phẩm</h3>
                 </div>
-                <li v-else class="d-flex justify-content-center" v-for="(item, index) in products">
-                    <span class="product-stt">{{ (index + 1) }}</span>
-                    <span class="product-category">{{ item.category }}</span>
-                    <span class="product-name">{{ item.title }}</span>
-                    <span class="product-quatity">{{ item.quantity }}</span>
-                    <span class="product-price">{{ item.price }}</span>
-                    <div class="btn-product">
+                <ul v-else class="list-product-item" v-for="(item, index) in products">
+                    <li class="product-stt">{{ (index + 1) }}</li>
+                    <li class="product-category">{{ item.category }}</li>
+                    <li class="product-name">{{ item.title }}</li>
+                    <li class="product-quatity">{{ item.quantity }}</li>
+                    <li class="product-price">{{ item.price }}</li>
+                    <li class="btn-product">
                         <button class="btn btn-warning" @click="gotoUpdatePage(item._id)">
                             <i class="fa-solid fa-pen"></i>
                         </button>
                         <button class="btn btn-danger" @click="delproduct(item._id)">
                             <i class="fa-sharp fa-solid fa-xmark"></i>
                         </button>
-                    </div>
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
             <router-link to="/addproduct" class="btn btn-primary">Thêm sản phẩm</router-link>
         </div>
     </div>
 </template>
 <style scoped>
-.search{
+.search {
     margin-top: 8px;
     margin-left: 8px;
 }
-.search input{
+
+.search input {
     outline: none;
     border: 2px solid #696666;
     border-radius: 5px;
     height: 35px;
 }
-.search button{
+
+.search button {
     margin-bottom: 5px;
     margin-left: 4px;
 }
+
 .products {
     width: 100%;
-    height: 653px;
+    height: 100%;
     background-color: #f0f5f8;
 }
 
 .list-info {
+    display: flex;
+    list-style: none;
     width: 100%;
     padding: 0;
     margin: 0;
@@ -157,60 +167,61 @@ export default {
 }
 
 .list-info li {
-    border-bottom: 1px solid #9c9a9a;
-    margin: 0 8px;
     padding: 16px 0;
 }
 
-.list-info li span {
+.list-product {
+    height: 416px;
+    overflow-y: scroll;
+}
+
+.list-product ul {
+    padding-left: 10px;
+    list-style-type: none;
+    display: flex;
+
+}
+
+.list-product-item {
+    border-bottom: 1px solid #63c5de;
+}
+
+.product-stt,
+.list-info li:nth-child(1) {
+    min-width: 30px;
+}
+
+.product-category,
+.list-info li:nth-child(2) {
     min-width: 150px;
 }
 
-.list-product li span {
-    min-width: 150px;
-    overflow-x: scroll;
-}
-
-.list-product .product-name {
-    width: 50px;
-}
-
-.list-product .product-stt,
-.list-info .product-stt {
-    min-width: 50px;
-}
-
-.list-product li {
+.product-price,
+.list-info li:nth-child(5) {
     min-width: 100px;
 }
 
-
-
-.list-product li span::-webkit-scrollbar {
-    width: 2px;
+.product-quatity,
+.list-info li:nth-child(4) {
+    min-width: 100px;
 }
-
-.list-product {
-    height: 400px;
-    width: 100%;
-    overflow-y: scroll;
-    padding: 0;
-    margin: 0;
-}
-
-.list-product li {
-    border-bottom: 1px solid #9c9a9a;
-    margin: 0 8px;
-    margin-top: 8px;
-}
-
 
 .btn-product {
-    padding-right: 45px;
+    min-width: 150px;
+}
+
+.list-info li:nth-child(6) {
+    min-width: 0px;
+}
+
+.product-name,
+.list-info li:nth-child(3) {
+    min-width: 600px;
 }
 
 .btn-product button {
     margin: 0 4px;
+    width: 45px;
 }
 
 .list-product::-webkit-scrollbar {
@@ -225,78 +236,35 @@ export default {
     background-color: var(--color--main--);
     border-radius: 50px;
 }
-
-.btn-product button {
-    width: 45px;
-}
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 576px) {
-    .list-product li span {
-        min-width: 50px;
-        overflow-x: scroll;
-    }
-
-    .list-info li span {
-        min-width: 50px;
-    }
-
-    .btn-product {
-        padding-right: 0;
-    }
-
-
-}
-
 @media only screen and (max-width: 600px) {
-    .list-product li span {
-        min-width: 50px;
-        overflow-x: scroll;
-    }
 
-    .btn-product {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .btn-product {
-        padding-right: 0;
-    }
-
-    .list-info li span {
-        min-width: 50px;
-    }
-
+.list-info,
+.list-product ul {
+    display: block;
 }
-
-@media only screen and (min-width: 736px) and (max-width: 767px) {
-    .list-product li span {
-        min-width: 100px;
-        overflow-x: scroll;
-    }
-
-    .list-info li span {
-        min-width: 100px;
-    }
-
-    .btn-product {
-        padding-right: 0;
-    }
 }
+@media only screen and (min-width: 576px) and (max-width:768px) {
 
+.list-info,
+.list-product ul {
+    display: block;
+}
+}
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 768px) and (max-width:992px) {
-    .list-product li span {
-        min-width: 100px;
-        overflow-x: scroll;
-    }
 
-    .list-info li span {
-        min-width: 100px;
+    .list-info,
+    .list-product ul {
+        display: block;
     }
+}
+@media only screen and (min-width: 922px) and (max-width:1200px) {
 
-    .btn-product {
-        padding-right: 0;
+    .list-info,
+    .list-product ul {
+        display: block;
     }
+}
 
-}</style>
+
+</style>

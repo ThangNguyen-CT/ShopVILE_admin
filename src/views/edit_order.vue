@@ -1,6 +1,7 @@
 <script>
 import OrderService from '../services/Order.service';
 import loading from '../components/loading.vue';
+import hearder from '../components/hearder.vue';
 export default {
     data() {
         return {
@@ -13,7 +14,7 @@ export default {
         }
     },
     components: {
-        loading
+        loading,hearder
     },
     methods: {
         async getOrderbyId() {
@@ -31,7 +32,7 @@ export default {
                 this.isLoad = true;
                 const id = localStorage.getItem('IdOrder');
                 await OrderService.update(id,this.statusOrder);
-                console.log(this.statusOrder);
+                localStorage.removeItem('IdOrder');
                 this.isLoad = false;
             } catch (error) {
                 console.log(error);
@@ -51,7 +52,7 @@ export default {
 </script>
 <template>
     <loading v-if="isLoad"></loading>
-    <a href="/order">Trở về</a>
+    <hearder></hearder>
     <h4 class="text-center color-text">Chi tiết đơn hàng</h4>
     <div class="wrapper_order_details">
         <div class="order_details row">
@@ -98,7 +99,7 @@ export default {
         </div>
         <div class="btn_edit_order">
             <button class="btn btn-danger" @click="updateOrder()"> Lưu </button>
-            <button class="btn btn-primary"> Hủy </button>
+            <router-link to="/order" class="btn btn-primary">Trờ về</router-link>
         </div>
     </div>
 </template>
