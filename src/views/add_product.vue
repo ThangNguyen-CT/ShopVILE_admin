@@ -25,16 +25,19 @@ export default {
             const quantity = formData.get('quantity');
             const price = formData.get('price');
             if (quantity > 0 && price >= 0) {
-                this.isLoading = true;
                 try {
+                    this.isLoading = true;
                     await ProductService.create(formData);
                     this.isLoading = false;
+                    alert('Thêm thành công');
+                    this.$router.push('/');
                 } catch (error) {
                     this.isLoading = false;
                     console.log(error);
+                    alert('Thêm thất bại');
                 }
             } else {
-                console.log("Gia hoac so luong khong hop le");
+                console.log("Giá / số lượng không hợp lệ");
             }
         }
     },
@@ -43,7 +46,6 @@ export default {
 <template>
     <loading v-if="isLoading"></loading>
     <div class="add_product">
-        <router-link to="/">Trở về</router-link>
         <h3 class="text-center">Thêm sản phẩm</h3>
         <div class="form_product">
             <formproduct @submit:product="addproduct" :productLocal="{}" :showimg="true" :imgs="imgProduct"></formproduct>

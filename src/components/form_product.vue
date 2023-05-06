@@ -89,7 +89,8 @@ export default {
             <input type="text" class="form-control" id="color" placeholder="Nhập màu sản phẩm...." name="color" required
                 v-model="this.product.color">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-danger">Lưu</button>
+        <router-link to="/" class="btn btn-primary" style="margin-left: 8px;">Trờ về</router-link>
     </form>
 </template>
 <style scoped>

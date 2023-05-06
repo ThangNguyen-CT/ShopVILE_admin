@@ -6,7 +6,7 @@ export default {
         return {
             formsingup: {},
             rfpwd: '',
-            isLoad: false
+            isLoad: false,
         }
     },
     components: {
@@ -20,15 +20,20 @@ export default {
                     await UserService.register(this.formsingup);
                     this.isLoad = false;
                     if (confirm('Đăng ký thành công')) {
-                        this.$router.push('/login');
+                        this.$router.push('/users');
                     }
                 } else {
                     alert("Nhập lại password không đúng !!");
                 }
             } catch (error) {
                 console.log(error);
-                alert("Thông tin của bạn bị trùng !!");
+                alert("Bạn không phải Admin / thông tin nhập đã tồn tại !!");
             }
+        }
+    },
+    mounted() {
+        if (!JSON.parse(localStorage.getItem('infouser'))) {
+            this.$router.push('/login');
         }
     }
 }
@@ -44,7 +49,7 @@ export default {
                             <div class="row justify-content-center">
                                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Đăng ký</p>
 
                                     <form class="mx-1 mx-md-4" @submit.prevent="signup()">
 
@@ -106,14 +111,11 @@ export default {
                                                     khoản của chúng tôi</a>
                                             </label>
                                         </div>
-                                        <div class="mb-3">
-                                            <span>Bạn có thể đi đến trang</span><router-link to="/login"> đăng
-                                                nhập</router-link>
-                                        </div>
                                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                            <button type="submit" class="btn btn-primary btn-lg">Đăng ký</button>
+                                            <button type="submit" class="btn btn-danger">Đăng ký</button>
+                                            <router-link to="/users" class="btn btn-primary"
+                                                style="margin-left: 4px; color: #fff;">Trở về</router-link>
                                         </div>
-
                                     </form>
 
                                 </div>

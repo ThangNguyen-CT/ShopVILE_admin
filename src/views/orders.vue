@@ -7,7 +7,8 @@ export default {
     data() {
         return {
             isLoad: false,
-            dataOrders: []
+            dataOrders: {},
+            textsearch: ''
         }
     },
     components: {
@@ -26,8 +27,23 @@ export default {
             }
         },
         getIdOrder(id) {
-            localStorage.setItem('IdOrder', id);
+            sessionStorage.setItem('IdOrder', id);
             this.$router.push('/editorder');
+        },
+        async searchorder() {
+            try {
+                var id = this.textsearch;
+                this.isLoad = true;
+                await OrderService.getbyId(this.textsearch);
+                this.isLoad = false;
+                sessionStorage.setItem('IdOrder', id);
+                this.$router.push('/editorder');
+            } catch (error) {
+                console.log(error);
+                alert("Không có mã đơn hàng này !");
+                this.isLoad = false;
+                this.textsearch = '';
+            }
         }
     },
     mounted() {
@@ -41,15 +57,16 @@ export default {
     <div class="wrapper d-flex">
         <leftPage></leftPage>
         <div class="orders">
-            <div class="search">
-                <input type="text" placeholder="Tìm kiếm đơn hàng" name="search">
-                <button class="btn btn-primary">Tìm</button>
-            </div>
+            <form class="search" @submit.prevent="searchorder()">
+                <input type="text" placeholder="Nhập mã đơn hàng..." name="search" v-model="textsearch">
+                <button type="submit" class="btn btn-primary">Tìm</button>
+            </form>
             <h5 class="text-center">Danh sách đơn hàng</h5>
             <div class="list-info-order">
                 <ul class="info">
                     <li>STT</li>
                     <li>Mã đơn</li>
+                    <li>Tình trạng DH</li>
                     <li>Tình trạng TT</li>
                     <li>Khách hàng</li>
                     <li>Ngày</li>
@@ -60,6 +77,7 @@ export default {
                     <ul class="list-item-order" v-for="(item, index) in dataOrders" @click="getIdOrder(item._id)">
                         <li>{{ index + 1 }}</li>
                         <li>{{ item._id }}</li>
+                        <li>{{ item.orderStatus }}</li>
                         <li>{{ item.statusPayment }}</li>
                         <li>{{ item.name }}</li>
                         <li>{{ item.createdAt }}</li>
@@ -81,11 +99,17 @@ export default {
     border: 2px solid #696666;
     border-radius: 5px;
     height: 35px;
+    width: 300px;
+}
+
+.search button {
+    margin-bottom: 5px;
+    margin-left: 8px;
 }
 
 .orders {
     width: 100%;
-    height: 100%;
+    height: 657px;
     background-color: #f0f5f8;
 }
 
@@ -97,22 +121,34 @@ export default {
     margin: 0;
     background-color: #63c5de;
 }
-.list-info-order .info li{
+
+.list-info-order .info li {
     padding: 10px 0;
 }
+
 .list-info-order .info li,
 .list-item-order li {
-    width: 100%;
+    width: 200px;
     margin: 0 8px;
 }
 
 .list-info-order .info li:first-child,
 .list-item-order li:first-child {
-    width: 100px;
+    width: 30px;
+}
+
+.list-info-order .info li:nth-child(4),
+.list-item-order li:nth-child(4) {
+    width: 120px;
+}
+
+.list-info-order .info li:nth-child(7),
+.list-item-order li:nth-child(7) {
+    width: 50px;
 }
 
 .list-order {
-    height: 470px;
+    height: 400px;
     overflow-y: scroll;
 }
 
@@ -143,30 +179,50 @@ export default {
 }
 
 @media only screen and (max-width: 600px) {
+
     .list-item-order,
     .list-info-order .info {
         display: block;
     }
+
+    .orders {
+        height: 100%;
+    }
 }
 
 @media only screen and (min-width: 576px) and (max-width:768px) {
+
     .list-item-order,
     .list-info-order .info {
         display: block;
+    }
+    
+    .orders {
+        height: 100%;
     }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 768px) and (max-width:992px) {
+
     .list-item-order,
     .list-info-order .info {
         display: block;
     }
+    
+    .orders {
+        height: 100%;
+    }
 }
 
 @media only screen and (min-width: 922px) and (max-width:1200px) {
+
     .list-item-order,
     .list-info-order .info {
         display: block;
+    }
+    
+    .orders {
+        height: 100%;
     }
 }</style>

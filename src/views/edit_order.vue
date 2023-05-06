@@ -20,7 +20,7 @@ export default {
         async getOrderbyId() {
             try {
                 this.isLoad = true;
-                const id = localStorage.getItem('IdOrder');
+                const id = sessionStorage.getItem('IdOrder');
                 this.dataOrderById = await OrderService.getbyId(id);
                 this.isLoad = false;
             } catch (error) {
@@ -30,10 +30,12 @@ export default {
         async updateOrder() {
             try {
                 this.isLoad = true;
-                const id = localStorage.getItem('IdOrder');
+                const id = sessionStorage.getItem('IdOrder');
                 await OrderService.update(id,this.statusOrder);
-                localStorage.removeItem('IdOrder');
+                sessionStorage.removeItem('IdOrder');
                 this.isLoad = false;
+                alert("Cập nhật thành công !!!");
+                this.$router.push('/order');
             } catch (error) {
                 console.log(error);
             }
@@ -62,6 +64,7 @@ export default {
                 <li>Trạng thái thanh toán :
                     <select name="paystatus" id="paystatus" @change="getstatusPay">
                         <option :value="dataOrderById.statusPayment">{{ dataOrderById.statusPayment }}</option>
+                        <option value="Đã thanh toán">Chưa thanh toán</option>
                         <option value="Đã thanh toán">Đã thanh toán</option>
                     </select>
                 </li>

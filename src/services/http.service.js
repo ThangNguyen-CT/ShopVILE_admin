@@ -1,5 +1,5 @@
 import axios from "axios";
-var token = JSON.parse(sessionStorage.getItem('infouser'));
+var token = JSON.parse(localStorage.getItem('infouser'));
 const commonConfig = {
     headers: {
         "Content-Type": "application/json",

@@ -18,8 +18,7 @@ export default {
                 this.isLoad = true;
                 this.user = await UserService.login(this.formlogin);
                 this.isLoad = false;
-                console.log(this.user);
-                sessionStorage.setItem('infouser', JSON.stringify(this.user));
+                localStorage.setItem('infouser', JSON.stringify(this.user));
                 alert("Đăng nhập thành công");
                 this.$router.push('/');
             } catch (error) {
@@ -37,7 +36,7 @@ export default {
     <loading v-if="isLoad"></loading>
     <div class="login_form">
         <div class="login-box">
-            <h2>Login</h2>
+            <h2>Đăng nhập</h2>
             <form @submit.prevent="login()">
                 <div class="user-box">
                     <input type="email" name="" required v-model="formlogin.email">
@@ -54,9 +53,6 @@ export default {
                     <span></span>
                     Đăng nhập
                 </button>
-                <div class="mt-3">
-                    <span style="color: #fff;">Bạn có thể đi đến trang</span><router-link to="/signup"> Đăng ký</router-link>
-                </div>
             </form>
         </div>
     </div>
@@ -64,7 +60,7 @@ export default {
 <style scoped>
 .login_form {
     width: 100%;
-    height: 648px;
+    height: 713px;
     font-family: sans-serif;
     background: linear-gradient(#e1791e, #243b55);
 }

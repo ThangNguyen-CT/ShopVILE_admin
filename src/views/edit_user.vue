@@ -27,23 +27,25 @@ export default {
         async updateUser() {
             try {
                 const id = sessionStorage.getItem('idUser');
-                this.isLoad = true;
-                await UserService.update(id, this.user);
-                console.log(id,this.user);
-                alert("Cập nhật thành công");
-                sessionStorage.removeItem('idUser');
-                this.$router.push('/users');
-                this.isLoad = false;
+                if (Object.keys(this.user).length !== 0) {
+                    this.isLoad = true;
+                    await UserService.update(id, this.user);
+                    alert("Cập nhật thành công");
+                    sessionStorage.removeItem('idUser');
+                    this.$router.push('/users');
+                }else{
+                    alert("Vui lòng nhập thông tin bạn muốn đổi");
+                }
             } catch (error) {
                 console.log(error);
                 alert("Email hoặc SDT người dùng đã toàn tại !!!");
+                this.isLoad = false;
             }
         },
         getrole(e) {
             this.user.role = e.target.value;
         },
-        back(){
-            sessionStorage.removeItem('idUser');
+        back() {
             this.$router.push('/users');
         }
     },
@@ -102,6 +104,4 @@ export default {
         </div>
     </div>
 </template>
-<style scoped>
-
-</style>
+<style scoped></style>

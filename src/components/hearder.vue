@@ -8,7 +8,7 @@ export default {
     },
     methods: {
         getinfo() {
-            this.infouser = JSON.parse(sessionStorage.getItem('infouser'));
+            this.infouser = JSON.parse(localStorage.getItem('infouser'));
             if(this.infouser){
                 this.checklogin = true;
             }else{
@@ -17,7 +17,9 @@ export default {
         },
         logout(){
             this.checklogin = false;
-            sessionStorage.removeItem('infouser');
+            localStorage.removeItem('infouser');
+            sessionStorage.removeItem('IdOrder');
+            sessionStorage.removeItem('idUser');
             this.$router.push('/login');
         }
     },
@@ -46,20 +48,16 @@ export default {
                         <i class="fa-solid fa-user"></i>
                     </a>
                     <a v-else class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
+                        aria-haspopup="true" aria-expanded="false" style="text-transform: capitalize;">
                         {{ infouser.firstname }}
                     </a>
                     <div v-if="checklogin" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/">Trang Cá Nhân</a>
+                        <router-link class="dropdown-item" to="/profile">Trang Cá Nhân</router-link >
                         <span class="dropdown-item" @click="logout()">Đăng xuất</span>
-                        <!-- <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a> -->
                     </div>
                     <div v-else class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/login">Đăng nhập</a>
                         <a class="dropdown-item" href="/signup">Đăng ký</a>
-                        <!-- <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a> -->
                     </div>
                 </li>
             </ul>

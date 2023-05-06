@@ -74,10 +74,10 @@ export default {
     <div class="wrapper d-flex">
         <leftpage></leftpage>
         <div class="products">
-            <div class="search">
+            <form class="search" @submit.prevent="searchproduct()">
                 <input type="text" placeholder="Tìm kiếm sản phẩm" name="search" v-model="textsearch">
-                <button class="btn btn-primary" @click="searchproduct()">Tìm</button>
-            </div>
+                <button class="btn btn-primary">Tìm</button>
+            </form>
             <h5 class="text-center">Danh sách sản phẩm</h5>
             <ul class="list-info">
                 <!-- <li class="d-flex justify-content-center"> -->
@@ -120,10 +120,10 @@ export default {
                     <li class="product-quatity">{{ item.quantity }}</li>
                     <li class="product-price">{{ item.price }}</li>
                     <li class="btn-product">
-                        <button class="btn btn-warning" @click="gotoUpdatePage(item._id)">
+                        <button class="btn-warning" style="border-radius: 5px;" @click="gotoUpdatePage(item._id)">
                             <i class="fa-solid fa-pen"></i>
                         </button>
-                        <button class="btn btn-danger" @click="delproduct(item._id)">
+                        <button class="btn-danger" style="border-radius: 5px;" @click="delproduct(item._id)">
                             <i class="fa-sharp fa-solid fa-xmark"></i>
                         </button>
                     </li>
@@ -144,16 +144,17 @@ export default {
     border: 2px solid #696666;
     border-radius: 5px;
     height: 35px;
+    width: 300px;
 }
 
 .search button {
     margin-bottom: 5px;
-    margin-left: 4px;
+    margin-left: 8px;
 }
 
 .products {
     width: 100%;
-    height: 100%;
+    height: 657px;
     background-color: #f0f5f8;
 }
 
@@ -171,7 +172,7 @@ export default {
 }
 
 .list-product {
-    height: 416px;
+    height: 400px;
     overflow-y: scroll;
 }
 
@@ -184,11 +185,12 @@ export default {
 
 .list-product-item {
     border-bottom: 1px solid #63c5de;
+    padding: 8px 0;
 }
 
 .product-stt,
 .list-info li:nth-child(1) {
-    min-width: 30px;
+    min-width: 50px;
 }
 
 .product-category,
@@ -197,21 +199,10 @@ export default {
 }
 
 .product-price,
-.list-info li:nth-child(5) {
-    min-width: 100px;
-}
-
+.list-info li:nth-child(5),
 .product-quatity,
 .list-info li:nth-child(4) {
     min-width: 100px;
-}
-
-.btn-product {
-    min-width: 150px;
-}
-
-.list-info li:nth-child(6) {
-    min-width: 0px;
 }
 
 .product-name,
@@ -236,20 +227,40 @@ export default {
     background-color: var(--color--main--);
     border-radius: 50px;
 }
+
 @media only screen and (max-width: 600px) {
 
-.list-info,
-.list-product ul {
-    display: block;
+    .list-info,
+    .list-product ul {
+        display: block;
+    }
+
+    .products {
+        height: 100%;
+    }
+
+    .product-name,
+    .list-info li:nth-child(3) {
+        min-width: 200px;
+    }
 }
-}
+
 @media only screen and (min-width: 576px) and (max-width:768px) {
 
-.list-info,
-.list-product ul {
-    display: block;
+    .list-info,
+    .list-product ul {
+        display: block;
+    }
+
+    .products {
+        height: 100%;
+    }
+    .product-name,
+    .list-info li:nth-child(3) {
+        min-width: 200px;
+    }
 }
-}
+
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 768px) and (max-width:992px) {
 
@@ -257,14 +268,29 @@ export default {
     .list-product ul {
         display: block;
     }
+
+    .products {
+        height: 100%;
+    }
+    .product-name,
+    .list-info li:nth-child(3) {
+        min-width: 200px;
+    }
 }
+
 @media only screen and (min-width: 922px) and (max-width:1200px) {
 
     .list-info,
     .list-product ul {
         display: block;
     }
+
+    .products {
+        height: 100%;
+    }
+    .product-name,
+    .list-info li:nth-child(3) {
+        min-width: 200px;
+    }
 }
-
-
 </style>

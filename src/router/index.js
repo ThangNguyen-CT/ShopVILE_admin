@@ -42,6 +42,12 @@ const routes = [{
             import ("@/views/edit_product.vue"),
     },
     {
+        path: "/profile",
+        name: "profile",
+        component: () =>
+            import ("@/views/profile.vue"),
+    },
+    {
         path: "/signup",
         name: "signup",
         component: () =>
