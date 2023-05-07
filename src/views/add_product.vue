@@ -7,7 +7,7 @@ export default {
     data() {
         return {
             isLoading: false,
-            imgProduct:[],
+            imgProduct: [],
         }
     },
     components: {
@@ -34,7 +34,9 @@ export default {
                 } catch (error) {
                     this.isLoading = false;
                     console.log(error);
-                    alert('Thêm thất bại');
+                    // alert('Thêm thất bại');
+                    alert('Bạn không có quyền thêm');
+
                 }
             } else {
                 console.log("Giá / số lượng không hợp lệ");

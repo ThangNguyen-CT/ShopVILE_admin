@@ -8,8 +8,8 @@ export default {
             isLoad: false,
             dataOrderById: {},
             statusOrder: {
-                statusPayment :'Chưa thanh toán',
-                orderStatus :'Đang xử lý'
+                statusPayment :'',
+                orderStatus :''
             }
         }
     },
@@ -19,16 +19,17 @@ export default {
     methods: {
         async getOrderbyId() {
             try {
-                this.isLoad = true;
-                const id = sessionStorage.getItem('IdOrder');
-                this.dataOrderById = await OrderService.getbyId(id);
-                this.isLoad = false;
+                    this.isLoad = true;
+                    const id = sessionStorage.getItem('IdOrder');
+                    this.dataOrderById = await OrderService.getbyId(id);
+                    this.isLoad = false;
             } catch (error) {
                 console.log(error);
             }
         },
         async updateOrder() {
             try {
+                if(this.statusOrder.statusPayment != '' || this.statusOrder.orderStatus != ''){
                 this.isLoad = true;
                 const id = sessionStorage.getItem('IdOrder');
                 await OrderService.update(id,this.statusOrder);
@@ -36,6 +37,10 @@ export default {
                 this.isLoad = false;
                 alert("Cập nhật thành công !!!");
                 this.$router.push('/order');
+                }
+                else{
+                    alert('Chưa chọn thông tin');
+                }
             } catch (error) {
                 console.log(error);
             }

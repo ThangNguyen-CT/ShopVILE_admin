@@ -32,10 +32,13 @@ export default {
         },
         async delproduct(id) {
             try {
-                await ProductService.delete(id);
-                this.getallproduct();
+                if(confirm('Bạn có chắc chắn xóa không ?')){
+                    await ProductService.delete(id);
+                    this.getallproduct();
+                }
             } catch (error) {
                 console.log(error);
+                alert('Bạn không có quyền xóa');
             }
         },
         gotoUpdatePage(_id) {

@@ -39,7 +39,8 @@ export default {
                 this.$router.push('/');
             } catch (error) {
                 console.log(error);
-                alert('Cập nhật thất bại');
+                // alert('Cập nhật thất bại');
+                alert('Bạn không có quyền sửa');
                 this.load = false;
             }
         }
