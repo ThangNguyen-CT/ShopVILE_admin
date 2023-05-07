@@ -1,7 +1,7 @@
 <template>
     <div class="left_page">
         <div class="img_admin">
-            <img src="../assets/img/logo-vila.png" alt="logo">
+            <img src="../assets/img/logo.png" alt="logo">
         </div>
         <ul class="nav_list">
             <a href="/users" active-class="active">
