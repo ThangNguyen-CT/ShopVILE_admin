@@ -36,7 +36,7 @@ export default {
                     console.log(error);
                     // alert('Thêm thất bại');
                     alert('Bạn không có quyền thêm');
-
+                    this.$router.push('/');
                 }
             } else {
                 console.log("Giá / số lượng không hợp lệ");

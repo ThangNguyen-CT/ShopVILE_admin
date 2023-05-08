@@ -20,7 +20,7 @@ export default {
                 this.isLoad = false;
                 localStorage.setItem('infouser', JSON.stringify(this.user));
                 alert("Đăng nhập thành công");
-                this.$router.push('/');
+                location.href = '/';
             } catch (error) {
                 console.log(error);
                 alert("Thông tin đăng nhập sai");
