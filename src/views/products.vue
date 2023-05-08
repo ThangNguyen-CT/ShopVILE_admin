@@ -11,7 +11,7 @@ export default {
             sortquantity: true,
             sorttitle: true,
             sortcategory: true,
-            products: [],
+            products: {},
             sort: '',
             valuesort: '',
             textsearch: ''
@@ -32,7 +32,7 @@ export default {
         },
         async delproduct(id) {
             try {
-                if(confirm('Bạn có chắc chắn xóa không ?')){
+                if (confirm('Bạn có chắc chắn xóa không ?')) {
                     await ProductService.delete(id);
                     this.getallproduct();
                 }
@@ -112,11 +112,9 @@ export default {
                 <li class="product-modify">Hiệu chỉnh</li>
                 <!-- </li> -->
             </ul>
-            <div class="list-product">
-                <div v-if="products.length == 0">
-                    <h3 class="text-center">Không có sản phẩm</h3>
-                </div>
-                <ul v-else class="list-product-item" v-for="(item, index) in products">
+            <h6 v-if="products.length == 0" class="text-center">Chưa có sản phẩm</h6>
+            <div v-else class="list-product">
+                <ul class="list-product-item" v-for="(item, index) in products">
                     <li class="product-stt">{{ (index + 1) }}</li>
                     <li class="product-category">{{ item.category }}</li>
                     <li class="product-name">{{ item.title }}</li>
@@ -258,6 +256,7 @@ export default {
     .products {
         height: 100%;
     }
+
     .product-name,
     .list-info li:nth-child(3) {
         min-width: 200px;
@@ -275,6 +274,7 @@ export default {
     .products {
         height: 100%;
     }
+
     .product-name,
     .list-info li:nth-child(3) {
         min-width: 200px;
@@ -291,6 +291,7 @@ export default {
     .products {
         height: 100%;
     }
+
     .product-name,
     .list-info li:nth-child(3) {
         min-width: 200px;

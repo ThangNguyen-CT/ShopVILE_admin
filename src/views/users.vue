@@ -8,9 +8,10 @@ export default {
     data() {
         return {
             isLoad: false,
-            dataUsers: [],
+            dataUsers: {},
             toast: '',
-            checkadmin:false,
+            checkadmin: false,
+            textsearch: ''
         }
     },
     components: {
@@ -59,9 +60,22 @@ export default {
                 console.log(error);
             }
         },
-        gotologin(){
+        gotologin() {
             this.$router.push('/login');
             localStorage.removeItem('infouser');
+        },
+        async searchuser() {
+            try {
+                var id = this.textsearch;
+                await UserService.getById(this.textsearch);
+                sessionStorage.setItem('idUser', id);
+                this.$router.push('/edituser');
+            } catch (error) {
+                console.log(error);
+                alert("Không có mã đơn hàng này !");
+                this.isLoad = false;
+                this.textsearch = '';
+            }
         }
     },
     mounted() {
@@ -75,21 +89,27 @@ export default {
     <div class="wrapper d-flex">
         <leftPage></leftPage>
         <div class="users">
+            <form class="search" @submit.prevent="searchuser()">
+                <input type="text" placeholder="Tìm kiếm người dùng" name="search" v-model="textsearch">
+                <button class="btn btn-primary">Tìm</button>
+            </form>
             <h5 class="text-center">Danh sách người dùng</h5>
             <div class="wrapper-list">
                 <ul class="info">
                     <li>STT</li>
+                    <li>Mã NV</li>
                     <li>Tên</li>
                     <li>Email</li>
                     <li>Số điện thoại</li>
-                    <li>Quyền quản trị</li>
+                    <li>Quyền</li>
                     <li>Ngày tạo</li>
                     <li>Hiệu chỉnh</li>
                 </ul>
-                <div class="list-user">
-                    <h6 v-if="toast != ''" class="text-center list-user">{{ toast }}</h6>
-                    <ul v-else class="list-item-user" v-for="(item, index) in dataUsers" v-show="item.email != getEmail">
+                <h3 v-if="toast != ''" class="text-center list-user">{{ toast }}</h3>
+                <div v-else class="list-user">
+                    <ul class="list-item-user" v-for="(item, index) in dataUsers" v-show="item.email != getEmail">
                         <li>{{ index }}</li>
+                        <li>{{ item._id }}</li>
                         <li>{{ item.firstname }} {{ item.lastname }}</li>
                         <li>{{ item.email }}</li>
                         <li>{{ item.mobile }}</li>
@@ -99,7 +119,8 @@ export default {
                             <button class="btn-warning" style="border-radius: 5px;" @click="editUser(item._id)">
                                 <i class="fa-solid fa-pen" style="padding: 5px;"></i>
                             </button>
-                            <button class="btn-danger" style="margin-left: 4px; border-radius: 5px;" @click="deluser(item._id)">
+                            <button class="btn-danger" style="margin-left: 4px; border-radius: 5px;"
+                                @click="deluser(item._id)">
                                 <i class="fa-sharp fa-solid fa-xmark" style="padding: 5px 8px;"></i>
                             </button>
                         </li>
@@ -112,6 +133,24 @@ export default {
     </div>
 </template>
 <style scoped>
+.search {
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+.search input {
+    outline: none;
+    border: 2px solid #696666;
+    border-radius: 5px;
+    height: 35px;
+    width: 300px;
+}
+
+.search button {
+    margin-bottom: 5px;
+    margin-left: 8px;
+}
+
 .users {
     width: 100%;
     height: 657px;
@@ -143,7 +182,15 @@ export default {
 }
 
 .wrapper-list .info li:nth-child(6),
-.list-item-user li:nth-child(6) {
+.list-item-user li:nth-child(6){
+    text-transform: capitalize;
+    width: 100px;
+}
+
+.wrapper-list .info li:nth-child(7),
+.list-item-user li:nth-child(7),
+.wrapper-list .info li:nth-child(2),
+.list-item-user li:nth-child(2){
     width: 200px;
 }
 
@@ -165,7 +212,7 @@ export default {
     background-color: #63c5de;
 }
 
-.list-item-user li:nth-child(2) {
+.list-item-user li:nth-child(3) {
     text-transform: capitalize;
 }
 
@@ -188,7 +235,8 @@ export default {
     .wrapper-list .info {
         display: block;
     }
-    .users{
+
+    .users {
         height: 100%;
     }
 }
@@ -199,7 +247,8 @@ export default {
     .wrapper-list .info {
         display: block;
     }
-    .users{
+
+    .users {
         height: 100%;
     }
 }
@@ -211,7 +260,8 @@ export default {
     .wrapper-list .info {
         display: block;
     }
-    .users{
+
+    .users {
         height: 100%;
     }
 }
@@ -222,7 +272,8 @@ export default {
     .wrapper-list .info {
         display: block;
     }
-    .users{
+
+    .users {
         height: 100%;
     }
 }

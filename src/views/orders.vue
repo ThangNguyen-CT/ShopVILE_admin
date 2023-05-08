@@ -33,9 +33,7 @@ export default {
         async searchorder() {
             try {
                 var id = this.textsearch;
-                this.isLoad = true;
                 await OrderService.getbyId(this.textsearch);
-                this.isLoad = false;
                 sessionStorage.setItem('IdOrder', id);
                 this.$router.push('/editorder');
             } catch (error) {

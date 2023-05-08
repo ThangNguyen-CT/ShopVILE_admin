@@ -36,7 +36,7 @@ export default {
                 this.$router.push('/order');
                 }
                 else{
-                    alert('Chưa chọn thông tin');
+                    alert('Chưa thay đổi thông tin');
                 }
             } catch (error) {
                 console.log(error);
