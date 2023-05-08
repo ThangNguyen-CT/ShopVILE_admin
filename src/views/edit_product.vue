@@ -42,6 +42,7 @@ export default {
                 // alert('Cập nhật thất bại');
                 alert('Bạn không có quyền sửa');
                 this.load = false;
+                this.$router.push('/');
             }
         }
     },
