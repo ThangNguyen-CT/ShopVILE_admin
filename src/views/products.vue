@@ -78,7 +78,7 @@ export default {
         <leftpage></leftpage>
         <div class="products">
             <form class="search" @submit.prevent="searchproduct()">
-                <input type="text" placeholder="Tìm kiếm sản phẩm" name="search" v-model="textsearch">
+                <input type="text" placeholder="Nhập tên sản phẩm...." name="search" v-model="textsearch">
                 <button class="btn btn-primary">Tìm</button>
             </form>
             <h5 class="text-center">Danh sách sản phẩm</h5>

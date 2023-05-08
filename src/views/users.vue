@@ -90,7 +90,7 @@ export default {
         <leftPage></leftPage>
         <div class="users">
             <form class="search" @submit.prevent="searchuser()">
-                <input type="text" placeholder="Tìm kiếm người dùng" name="search" v-model="textsearch">
+                <input type="text" placeholder="Nhập mã người dùng..." name="search" v-model="textsearch">
                 <button class="btn btn-primary">Tìm</button>
             </form>
             <h5 class="text-center">Danh sách người dùng</h5>
