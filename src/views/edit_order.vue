@@ -7,10 +7,7 @@ export default {
         return {
             isLoad: false,
             dataOrderById: {},
-            statusOrder: {
-                statusPayment :'',
-                orderStatus :''
-            }
+            statusOrder: {}
         }
     },
     components: {
@@ -29,7 +26,7 @@ export default {
         },
         async updateOrder() {
             try {
-                if(this.statusOrder.statusPayment != '' || this.statusOrder.orderStatus != ''){
+                if(Object.keys(this.statusOrder).length !== 0){
                 this.isLoad = true;
                 const id = sessionStorage.getItem('IdOrder');
                 await OrderService.update(id,this.statusOrder);
