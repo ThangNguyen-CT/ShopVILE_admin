@@ -31,6 +31,9 @@ export default {
                 }
             }
         },
+        getCategory(e){
+            this.product.category = e.target.value;
+        },
         delImg(i) {
             if (this.imgProduct[i]) {
                 URL.revokeObjectURL(this.imgProduct[i]);
@@ -60,8 +63,11 @@ export default {
         </div>
         <div class="mb-3 mt-3">
             <label for="category" class="form-label">Thể loại sản phẩm:</label>
-            <input type="text" class="form-control" id="category" placeholder="Nhập loại sản phẩm...." name="category"
-                required v-model="this.product.category">
+            <select name="caterory" style="margin-left: 5px; width: 100px;" id="category" @change="getCategory">
+                <option value="">Chọn loại</option>
+                <option value="Vali">Vali</option>
+                <option value="Balo">Balo</option>  
+            </select>
         </div>
         <div class="mb-3 mt-3">
             <label for="brand" class="form-label">Thương hiệu sản phẩm sản phẩm:</label>

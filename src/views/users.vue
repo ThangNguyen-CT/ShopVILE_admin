@@ -72,7 +72,7 @@ export default {
                 this.$router.push('/edituser');
             } catch (error) {
                 console.log(error);
-                alert("Không có mã đơn hàng này !");
+                alert("Không có mã người dùng này !");
                 this.isLoad = false;
                 this.textsearch = '';
             }
