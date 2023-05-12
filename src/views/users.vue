@@ -175,7 +175,9 @@ export default {
     width: 150px;
     margin: 0 8px;
 }
-
+.list-item-user li:nth-child(4){
+    word-wrap: break-word;
+}
 .wrapper-list .info li:first-child,
 .list-item-user li:first-child {
     width: 50px;

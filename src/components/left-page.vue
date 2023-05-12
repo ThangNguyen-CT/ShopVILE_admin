@@ -1,30 +1,30 @@
 <template>
-    <div class="left_page">
-        <div class="img_admin">
-            <img src="../assets/img/logo.jpg" alt="logo">
-        </div>
-        <ul class="nav_list">
-            <a href="/users" active-class="active">
-                <li class="nav_list-item">
-                    <i class="fa-solid fa-users"></i>
-                    <span>Quản lý người dùng</span>
-                </li>
-              </a>
-            <router-link :to="{ name: 'products' }" active-class="active">
-                <li class="nav_list-item">
-                    <i class="fa-brands fa-product-hunt"></i>
-                    <span>Quản lý sản phẩm</span>
-                </li>
-            </router-link>
-            <router-link :to="{ name: 'order' }" active-class="active">
-                <li class="nav_list-item">
-                    <i class="fa-solid fa-store"></i>
-                    <span>Quản lý đơn hàng</span>
-                </li>
-            </router-link>
-        </ul>
-        <!-- <button type="button" class="btn btn-info"><router-link to="http://127.0.0.1:5173/"></router-link>Trở về</button> -->
+  <div class="left_page">
+    <div class="img_admin">
+      <img src="../assets/img/logo.jpg" alt="logo">
     </div>
+    <ul class="nav_list">
+      <router-link :to="{ name: 'users' }" active-class="active">
+        <li class="nav_list-item">
+          <i class="fa-solid fa-users"></i>
+          <span>Quản lý người dùng</span>
+        </li>
+      </router-link>
+      <router-link :to="{ name: 'products' }" active-class="active">
+        <li class="nav_list-item">
+          <i class="fa-brands fa-product-hunt"></i>
+          <span>Quản lý sản phẩm</span>
+        </li>
+      </router-link>
+      <router-link :to="{ name: 'order' }" active-class="active">
+        <li class="nav_list-item">
+          <i class="fa-solid fa-store"></i>
+          <span>Quản lý đơn hàng</span>
+        </li>
+      </router-link>
+    </ul>
+    <!-- <button type="button" class="btn btn-info"><router-link to="http://127.0.0.1:5173/"></router-link>Trở về</button> -->
+  </div>
 </template>
 <style scoped>
 .header {
